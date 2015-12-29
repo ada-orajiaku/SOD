@@ -1,0 +1,73 @@
+
+body{
+	background: #50B2C7;
+}
+#thelist{
+	padding:0px;
+	display:none;
+}
+#content{
+	-webkit-box-shadow: 0 0 10px #000;
+	-moz-box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 10px #000;
+	height: 100%;
+	position: relative;
+	z-index: 999;
+}
+
+.sod-content{
+	padding:2% 5%;
+}
+
+.fixed{
+	position:fixed;
+}
+/*
+ * Drawers
+ */
+.snap-drawers .table-view{
+	background: #50B2C7;
+	}
+	.snap-drawers .table-view li{
+		border-top: 1px solid rgba(255,255,255,0.10);
+		border-bottom: 1px solid rgba(0,0,0,0.45);
+		}
+		.snap-drawers .table-view li:first-child{
+			border-top: none;
+			}
+		.snap-drawers .table-view li:last-child{
+			border-bottom: none;
+			}
+	.snap-drawers .table-view li.table-view-divider{
+		box-shadow: none;
+		background: rgba(255, 255, 255, 0.1);
+		color: #E3E3DD;
+		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+		top: 0;
+		}
+	.snap-drawers .table-view li,
+	.snap-drawers .table-view li a{
+		color: #E3E3DD;
+		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+		}
+
+	.snap-content{
+		background:#D8F9FF;
+	}
+	.snap-drawer{
+	background: #50B2C7;
+}
+
+
+.slider{
+	  margin-top:-3.7%;
+}
+
+
+#mid-tab{
+	margin-left:10%;
+}
+
+.bar-header-secondary{
+	background:#fafafa;
+}

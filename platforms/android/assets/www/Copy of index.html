@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Seeds Of Destiny</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="css/ratchet.css">
+    <link rel="stylesheet" href="css/jquery.mmenu.css">
+    <link rel="stylesheet" href="css/index.css">
+  
+    <!-- Scripts -->
+	<script src="cordova.js"></script> 
+	<script src="js/fastclick.js"></script>
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery.mmenu.min.js"></script>
+	<script src="js/handlebars.js"></script>
+    <!-- your app's script -->
+    <script src="js/websql-adapter.js"></script>
+
+  </head>
+  <body>
+   <div class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="#menu-left" ></a>
+      <h1 class="title">Seeds Of Destiny</h1>
+   </div>
+   	<div id="content" class="content"></div>
+   	<nav id="menu-left">
+	<ul class="table-view">
+		<li class="table-view-cell table-view-divider">&nbsp;</li>
+		<li class="table-view-cell"><img src="img/logo.png" width="250px"/></li>
+		<li class="table-view-cell table-view-divider"></li>
+		<li class="table-view-cell"><a href="#" >Home</a></li>
+		<li class="table-view-cell"><a href="#contact">Contact Us</a></li>
+		<li class="table-view-cell"><a href="#dtv">Watch Us</a></li>
+		<li class="table-view-cell table-view-divider"></li>
+	</ul><br>
+</nav>
+
+	<!-- Icons in standard bar fixed to the bottom of the screen -->
+  <div class="bar bar-standard bar-footer">
+	<div id="mid-tab">
+		<a href="#" class="icon icon-left-nav pull-left"></a>
+	</div>
+  </div>
+  
+
+		
+<script id="home-tpl" type="text/x-handlebars-template">
+	<!-- Block button in standard bar fixed below top bar -->
+	<ul class="table-view">
+		<li class="table-view-cell table-view-divider"> {{month}} {{year}} </li>
+	</ul>
+   
+      <ul class="table-view" id="thelist">
+		<li> Loading seeds of destiny content...</li> 
+      </ul>	
+	<br><br>
+</script>
+
+<script id="sod-li-tpl" type="text/x-handlebars-template">
+    {{#.}}
+        <li class="table-view-cell media">
+          <a class="push-right" href="#sod-{{remoteid}}" data-transition="slide-in">
+            <img class="media-object pull-left" src="img/numbs/{{day}}.png" width="50px">
+            <div class="media-body">
+              {{title}}
+              <p>{{thought}}.</p>
+            </div>
+          </a>
+        </li>
+    {{/.}}
+</script>
+
+<script id="sod-details-tpl" type="text/x-handlebars-template">
+
+     <ul class="table-view">
+		<li class="table-view-cell table-view-divider"><b>{{title}}</b></li>
+      </ul>
+<div class="sod-content">
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	{{#if scripture}}
+		<b>Scripture:</b><br>
+		<em>{{scripture}}</em>
+		<br><br>
+	{{/if}}
+	{{#if thought}}
+		<b>Thought:</b><br>
+		{{thought}}
+		<br><br>
+	{{/if}}
+	{{#if body}}
+		{{body}}
+		<br><br>
+	{{/if}}
+	{{#if assignment}}
+		<b>Assignment:</b><br>
+		{{assignment}}
+		<br><br>
+	{{/if}}
+	{{#if quote}}
+		<b>Quote:</b><br>
+		{{quote}}
+		<br><br>
+	{{/if}}
+	{{#if daily}}
+		<b>Daily Reading:</b><br>
+		{{daily}}
+		<br><br>
+	{{/if}}
+	{{#if further}}
+		<b>For further reading get the message:</b><br> {{further}}<br>
+	{{/if}}
+	<br><br>
+</div>
+
+</script>
+
+<script id="contact-tpl" type="text/x-handlebars-template">
+
+      <ul class="table-view" >
+		<li class="table-view-cell table-view-divider">Contact Us</li>
+		<li class="table-view-cell">
+              Home Church
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:dhc@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+		<li class="table-view-cell">
+              Testimony
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:testimony@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+		<li class="table-view-cell">
+              Counseling
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:counseling@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+
+      </ul>
+</script>
+
+<script id="dtv-tpl" type="text/x-handlebars-template">
+<br><br>
+<div>
+	
+	<a href="javascript:navigator.app.loadUrl('rtsp://lifestreamcdn.com:1935/live/dunamis2471', { openExternal:true });" class="btn btn-block">
+		<img src="img/dunamisWithGlobe1.png" width="350px;"/>
+	</a>
+	<a href="javascript:navigator.app.loadUrl('rtsp://lifestreamcdn.com:1935/live/dunamislive1', { openExternal:true });" class="btn btn-block">
+		<img src="img/live1.jpg" width="150px;"/>
+	</a>
+	
+
+	<!--<iframe src="http://www.lifestream.tv/dunamis/live.php" name="stream" width="90%" height="80%" align="middle" scrolling="No" frameborder="0" allowtransparency="true"></iframe>
+	-->
+</div>
+
+</script>
+
+	<!-- Scripts -->
+	<script src="js/views/HomeView.js"></script>
+	<script src="js/views/SodDetailsView.js"></script>
+	<script src="js/views/ContactView.js"></script>
+	<script src="js/views/DtvView.js"></script>
+
+		
+	<script src="js/app.js"></script>
+	<script>
+
+	
+	//	The menu on the left
+
+		
+
+	
+
+
+	</script>
+	
+  </body>
+</html>

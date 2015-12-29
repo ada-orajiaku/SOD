@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Seeds Of Destiny</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="css/ratchet.css">
+    <link rel="stylesheet" href="css/snap.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Scripts -->
+	<script src="cordova.js"></script>
+		<!-- Scripts -->
+	<script src="js/libs/fastclick.js"></script>
+	<script src="js/libs/jquery-1.10.2.min.js"></script>
+	<script src="js/libs/snap.min.js"></script>
+	<script src="js/libs/handlebars.js"></script>
+  </head>
+
+  <body>
+<div class="snap-drawers">
+   <header class="bar bar-nav"><img src="img/icon.png" width="60px" style="margin-left:6%;"/></header>
+
+    <div class="snap-drawer snap-drawer-left">
+    <div>
+		<ul class="table-view">
+  			<li class="table-view-cell table-view-divider">&nbsp;</li>
+  			<li class="table-view-cell table-view-divider"></li>
+  			<li class="table-view-cell"><a class="icon icon-home" href="#home" > Home</a></li>
+  			<li class="table-view-cell"><a href="#contact" class="icon icon-person" > Contact Us</a></li>
+   			<li class="table-view-cell"><a class="icon icon-play" href="#dtv"> Broadcasts</a></li>
+ 		</ul>
+ 	</div>
+	</div>
+
+	  <div class="bar bar-standard bar-footer"></div>
+</div>
+<div id="content" class="snap-content"></div>
+
+
+<script id="home-tpl" type="text/x-handlebars-template">
+   <header class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="javascript:toggleSnap();" ></a>
+      <h1 class="title">Seeds Of Destiny</h1>
+   </header>
+	<div class="bar bar-standard bar-header-secondary">
+  		<h2 class="title">{{month}} {{year}}</h2>
+		<a class="icon icon-refresh pull-right" href="javascript:sod.refresh();" onclick="return confirm('Do you want to reload Seeds of Destiny \ncontent for {{month}} {{year}} ');"></a>
+	</div>
+   <div class="content">
+		<p id="intro">Please wait while we load the Seeds of Destiny Content...</p>
+		<ul class="table-view" id="thelist"> </ul>
+		<br><br>
+	</div>
+  <div class="bar bar-standard bar-footer"></div>
+</script>
+
+<script id="sod-li-tpl" type="text/x-handlebars-template">
+    {{#.}}
+        <li class="table-view-cell media">
+          <a class="push-right" href="#sod-{{remoteid}}" data-transition="slide-in">
+            <img class="media-object pull-left" src="img/numbs/{{day}}.png" width="50px">
+            <div class="media-body">
+              {{title}}
+              <p>{{thought}}.</p>
+            </div>
+          </a>
+        </li>
+    {{/.}}
+</script>
+
+<script id="sod-details-tpl" type="text/x-handlebars-template">
+   <header class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="javascript:toggleSnap();" ></a>
+      <h1 class="title">Seeds Of Destiny</h1>
+   </header>
+	<!-- Block button in standard bar fixed below top bar -->
+	<div class="bar bar-standard bar-header-secondary">
+		<h2 class="title">{{title}}</h2>
+	</div>
+	<div id="sod-details" class="content sod-content">
+	<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+	{{#if scripture}}
+		<b>Scripture:</b><br>
+		<em>{{scripture}}</em>
+		<br><br>
+	{{/if}}
+	{{#if thought}}
+		<b>Thought:</b><br>
+		{{thought}}
+		<br><br>
+	{{/if}}
+	{{#if body}}
+		{{body}}
+		<br><br>
+	{{/if}}
+	{{#if assignment}}
+		<b>Assignment:</b><br>
+		{{assignment}}
+		<br><br>
+	{{/if}}
+	{{#if prayer}}
+		<b>Prayer:</b><br>
+		{{prayer}}
+		<br><br>
+	{{/if}}
+	{{#if quote}}
+		<b>Quote:</b><br>
+		{{quote}}
+		<br><br>
+	{{/if}}
+	{{#if daily}}
+		<b>Daily Reading:</b><br>
+		{{daily}}
+		<br><br>
+	{{/if}}
+	{{#if further}}
+		<b>For further reading get the message:</b><br> {{further}}<br>
+	{{/if}}
+	<br><br>
+	</div>
+  <div class="bar bar-standard bar-footer">
+	<a href="#home" class="icon icon-left-nav pull-left"></a>
+<!--	<div id="mid-tab">
+        <a href="#nogo" class="s0" title="small">A</a>
+        <a href="#nogo" class="s1" title="medium">A</a>
+        <a href="#nogo" class="s2" title="larger">A</a>
+        <a href="#nogo" class="s3" title="large">A</a>
+        <a href="#nogo" class="s4" title="x-large">A</a>
+        <a href="#nogo" class="s5" title="xx-large">A</a>
+        <a href="#nogo" class="s6" title="super extra large">A</a>
+        <a href="#nogo" class="s7" title="more than super extra large">A</a>
+        <a href="#nogo" class="s8" title="Humongous">A</a>
+	</div>
+	<a href="javascript:sod.addBookmark({{remoteid}});" class="icon icon-download pull-right" onclick="return confirm('Do you want to add this content to your bookmarks?');"></a>
+-->
+  </div>
+
+</script>
+
+<script id="contact-tpl" type="text/x-handlebars-template">
+   <header class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="javascript:toggleSnap();" ></a>
+      <h1 class="title">Contact Us</h1>
+   </header>
+<div class="content">
+ 	<ul class="table-view" >
+		<li class="table-view-cell">
+              Home Church
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:dhc@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+		<li class="table-view-cell">
+              Testimony
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:testimony@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+		<li class="table-view-cell">
+              Counseling
+             <div>
+				<a href="tel:+2348130641557" class="btn btn-outlined btn-primary">Call</a>
+				<a href="sms:+2348130641557" class="btn btn-outlined btn-primary">SMS</a>
+				<a href="mailto:counseling@dunamisgospel.org" class="btn btn-outlined btn-primary">Email</a>
+			</div>
+        </li>
+
+      </ul>
+</div>
+  <div class="bar bar-standard bar-footer">
+		<a href="#home" class="icon icon-left-nav pull-left"></a>
+  </div>
+</script>
+
+<script id="dtv-tpl" type="text/x-handlebars-template">
+   <header class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="javascript:toggleSnap();" ></a>
+      <h1 class="title">Broadcasts</h1>
+   </header>
+	<div  class="content sod-content">
+		<br><br><br>
+		<a href="javascript:navigator.app.loadUrl('rtsp://lifestreamcdn.com:1935/live/dunamis2471', { openExternal:true });" class="btn btn-block" onclick="return confirm('Watching Dunamis TV on your phone may incur extra additional charges. \n Do you want to proceed?')">
+			<img src="img/dunamisWithGlobe1.png" width="340px;"/>
+		</a>
+		<a href="javascript:navigator.app.loadUrl('rtsp://lifestreamcdn.com:1935/live/dunamislive1', { openExternal:true });" class="btn btn-block" onclick="return confirm('Watching Dunamis Live Stream on your phone may incur extra additional charges. \n Do you want to proceed?')" >
+			<img src="img/live1.jpg" width="150px;"/>
+		</a>
+	</div>
+  	<div class="bar bar-standard bar-footer">
+		<a href="#home" class="icon icon-left-nav pull-left"></a>
+  	</div>
+</script>
+
+<script id="bookmarks-tpl" type="text/x-handlebars-template">
+   <header class="bar bar-nav">
+      <a class="icon icon-list pull-left" href="javascript:toggleSnap();" ></a>
+      <h1 class="title">Bookmarks</h1>
+   </header>
+	<div  class="content">
+		<br><br><br>
+		<ul class="table-view" id="bookmark-list"> </ul>
+	</div>
+  	<div class="bar bar-standard bar-footer">
+		<a href="#home" class="icon icon-left-nav pull-left"></a>
+  	</div>
+</script>
+
+
+	<!-- Views -->
+	<script src="js/views/HomeView.js"></script>
+	<script src="js/views/SodDetailsView.js"></script>
+	<script src="js/views/ContactView.js"></script>
+	<script src="js/views/DtvView.js"></script>
+	<!-- your app's script -->
+    <script src="js/websql-adapter.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/libs/jquery.textresizer.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("#mid-tab a").textresizer({
+			target: "#sod-details",
+			sizes: [".875em", "1em", "1.125em", "1.25em", "1.375em", "1.5em", "1.625em", "1.75em", "1.875em"]
+		});
+	});
+
+	function toggleSnap(){
+		if (snapper.state().state == "left") {
+	        snapper.close();
+	    } else {
+	        snapper.open('left');
+	    }
+	}
+	</script>
+
+  </body>
+</html>
